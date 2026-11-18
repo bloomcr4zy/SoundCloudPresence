@@ -10,7 +10,13 @@ if (!/^\d{17,20}$/.test(applicationId ?? '')) {
   process.exit(1);
 }
 
-const stateDirectory = path.join(os.homedir(), 'Library', 'Application Support', 'BetterDiscord', 'lastfm-rpc');
+const windows = process.platform === 'win32';
+const appDataDirectory = windows
+  ? process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming')
+  : path.join(os.homedir(), 'Library', 'Application Support');
+const stateDirectory = path.join(appDataDirectory, 'BetterDiscord', 'lastfm-rpc');
+const socketDirectory = process.env.XDG_RUNTIME_DIR || process.env.TMPDIR ||
+  process.env.TMP || process.env.TEMP || '/tmp';
 fs.mkdirSync(stateDirectory, { recursive: true, mode: 0o700 });
 const stateFile = path.join(stateDirectory, 'activity.json');
 let socket, ready, pending, acknowledged, buffer;
@@ -25,7 +31,10 @@ function writeFrame(opcode, payload) {
 }
 
 function connect() {
-  const endpoint = path.join(os.tmpdir(), 'discord-ipc-' + nextSocket);
+  const socketName = 'discord-ipc-' + nextSocket;
+  const endpoint = windows
+    ? `\\\\?\\pipe\\${socketName}`
+    : path.join(socketDirectory, socketName);
   nextSocket = (nextSocket + 1) % 10;
   const connection = net.createConnection(endpoint);
   socket = connection;

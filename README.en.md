@@ -8,7 +8,7 @@ Show what you’re listening to on SoundCloud in your Discord profile. The plugi
 
 ## Requirements
 
-- macOS, the Discord desktop app with [BetterDiscord](https://betterdiscord.app/), and [Node.js](https://nodejs.org/) 22 or later.
+- Windows or macOS, the Discord desktop app with [BetterDiscord](https://betterdiscord.app/), and [Node.js](https://nodejs.org/) 22 or later.
 - A Last.fm account, a [Last.fm API key](https://www.last.fm/api/account/create), and the [Web Scrobbler](https://webscrobbler.com/) browser extension.
 - A [Discord Application ID](https://discord.com/developers/applications) to identify your activity.
 
@@ -17,13 +17,17 @@ Show what you’re listening to on SoundCloud in your Discord profile. The plugi
 1. Open Web Scrobbler in your browser and authorize your Last.fm account. Play a track on SoundCloud and check that it appears as currently playing on your Last.fm profile.
 2. Download the repository. In Discord, go to **Settings → BetterDiscord → Plugins → Open Plugin Folder** and copy [SoundCloudPresence.plugin.js](SoundCloudPresence.plugin.js) into that folder.
 3. Create an application in the [Discord Developer Portal](https://discord.com/developers/applications) and copy its **Application ID** from **General Information**. The application name appears in the activity heading. For the small SoundCloud badge, add an asset named `soundcloud` under **Rich Presence → Art Assets**.
-4. Open a terminal in the downloaded folder and run the command below with your application ID. Keep the terminal open while using the plugin.
+4. Open PowerShell (Windows) or Terminal (macOS) in the downloaded folder and run the command below with your application ID. Keep the terminal open while using the plugin.
 
-   ```sh
+   ```text
    node bridge.cjs YOUR_APPLICATION_ID
    ```
 
 5. Enable **SoundCloudPresence** in BetterDiscord. Open its settings, enter your Last.fm username and API key, and click **Save settings**. If needed, enable activity sharing under **Settings → Activity Privacy**.
+
+To open the plugin folder directly, use `%APPDATA%\BetterDiscord\plugins` on Windows or `~/Library/Application Support/BetterDiscord/plugins` on macOS.
+
+The **Application ID** is public and can be shared across installations of the same application. The application owner can upload the small badge once for all installations that use its ID.
 
 ## How it works
 
