@@ -6,6 +6,8 @@
 
 Mostre no Discord a faixa que você está ouvindo no SoundCloud. O plugin exibe título e artista e, quando encontra uma correspondência na busca pública do SoundCloud, adiciona a capa e o botão **Listen on SoundCloud**.
 
+![Cartão de atividade do Discord com Listening to SoundCloud, capa da faixa e ícone do SoundCloud](assets/discord-presence.png)
+
 ## Requisitos
 
 - Windows ou macOS, Discord para desktop com [BetterDiscord](https://betterdiscord.app/) e [Node.js](https://nodejs.org/) 22 ou posterior.

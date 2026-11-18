@@ -6,6 +6,8 @@
 
 Show what you’re listening to on SoundCloud in your Discord profile. The plugin displays the track and artist and adds the artwork and a **Listen on SoundCloud** button when it finds a match in SoundCloud’s public search.
 
+![Discord activity card showing Listening to SoundCloud, track artwork, and the SoundCloud badge](assets/discord-presence.png)
+
 ## Requirements
 
 - Windows or macOS, the Discord desktop app with [BetterDiscord](https://betterdiscord.app/), and [Node.js](https://nodejs.org/) 22 or later.
