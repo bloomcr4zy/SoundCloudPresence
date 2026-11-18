@@ -31,6 +31,12 @@ O Web Scrobbler envia a reprodução do navegador ao Last.fm. O plugin consulta 
 
 Se a faixa aparecer sem capa, o SoundCloud pode estar sem imagem para aquele upload ou a busca pode ter retornado resultados ambíguos. A conta do Last.fm também pode receber faixas de outros serviços conectados.
 
+## O que o comando executa
+
+O comando `node bridge.cjs` executa o [arquivo da ponte](bridge.cjs) incluído neste repositório. A ponte usa apenas módulos do Node.js, lê a atividade que o plugin grava no computador e envia os dados ao Discord pelo canal local do aplicativo. Não instala pacotes, não pede permissões de administrador e não usa token da conta Discord. Você pode ler o arquivo antes de executar e encerrar a ponte com **Ctrl+C**.
+
+O plugin consulta o Last.fm e o SoundCloud separadamente para obter a faixa e a imagem. A chave do Last.fm fica na configuração local do BetterDiscord.
+
 ## Licença
 
-[MIT](LICENSE)
+O código-fonte está disponível sob [MIT com Commons Clause 1.0](LICENSE). Você pode usar, modificar e redistribuir o projeto gratuitamente, mantendo os avisos da licença. A licença restringe a venda do software conforme a definição da Commons Clause. Versões publicadas anteriormente sob MIT continuam sob aquela licença.

@@ -31,6 +31,12 @@ Web Scrobbler sends browser playback to Last.fm. The plugin waits five seconds b
 
 If a track appears without artwork, the upload may have no artwork or the search may have returned ambiguous results. Other services connected to your Last.fm account can also appear in your presence.
 
+## What the command runs
+
+The `node bridge.cjs` command runs the [bridge file](bridge.cjs) included in this repository. The bridge uses Node.js built-in modules, reads the activity written locally by the plugin, and sends it to the Discord desktop client over local IPC. It installs no packages, requires no administrator privileges, and uses no Discord account token. You can inspect the file before running it and stop it with **Ctrl+C**.
+
+The plugin contacts Last.fm and SoundCloud separately to fetch the track and artwork. Your Last.fm API key stays in BetterDiscord’s local configuration.
+
 ## License
 
-[MIT](LICENSE)
+The source is available under the [MIT License with Commons Clause 1.0](LICENSE). You may use, modify, and redistribute the project for free while preserving the license notices. The license restricts sale of the software as defined by the Commons Clause. Versions previously released under MIT remain under that license.
