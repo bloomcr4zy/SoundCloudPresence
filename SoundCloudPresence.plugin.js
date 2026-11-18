@@ -196,7 +196,11 @@ module.exports = class SoundCloudPresence {
             const credited = [item.metadata_artist, item.user?.username, item.publisher_metadata?.artist].some(
                     name => artists.has(normalize(name))
                 );
-            const match = { url, artwork: httpsURL(item.artwork_url) };
+            const match = {
+                url,
+                artwork: httpsURL(item.artwork_url),
+                avatar: httpsURL(item.user?.avatar_url)
+            };
             if (credited && candidateTitle === normalizedTitle) {
                 creditedMatches.set(url, match);
             } else if (combinedTitles.has(candidateTitle)) {
@@ -262,7 +266,8 @@ module.exports = class SoundCloudPresence {
 
             const match = current.match;
             const artwork = match?.artwork ||
-                track.image?.map(image => httpsURL(image["#text"])).filter(Boolean).at(-1);
+                track.image?.map(image => httpsURL(image["#text"])).filter(Boolean).at(-1) ||
+                match?.avatar;
             this.publish({
                 type: 2,
                 details: track.name.trim().slice(0, 128),
