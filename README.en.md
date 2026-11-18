@@ -1,5 +1,7 @@
 ![SoundCloudPresence — Rich Presence for Discord](assets/banner.png)
 
+[![Download ZIP](https://img.shields.io/badge/Download%20ZIP-E65100?style=for-the-badge)](https://github.com/bloomcr4zy/SoundCloudPresence/releases/download/v1.0.0/SoundCloudPresence-1.0.0.zip)
+
 # SoundCloudPresence
 
 [Português (Brasil)](README.md)
