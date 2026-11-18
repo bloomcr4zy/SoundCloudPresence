@@ -16,7 +16,7 @@ Show what you’re listening to on SoundCloud in your Discord profile. The plugi
 ## Installation
 
 1. Open Web Scrobbler in your browser and authorize your Last.fm account. Play a track on SoundCloud and check that it appears as currently playing on your Last.fm profile.
-2. Download the repository. In Discord, go to **Settings → BetterDiscord → Plugins → Open Plugin Folder** and copy [SoundCloudPresence.plugin.js](SoundCloudPresence.plugin.js) into that folder.
+2. Download the ZIP from the [release page](https://github.com/bloomcr4zy/SoundCloudPresence/releases/latest) and extract it. In Discord, go to **Settings → BetterDiscord → Plugins → Open Plugin Folder** and copy [SoundCloudPresence.plugin.js](SoundCloudPresence.plugin.js) into that folder.
 3. Open PowerShell (Windows) or Terminal (macOS) in the downloaded folder and run the bridge. Keep the terminal open while using the plugin.
 
    ```text

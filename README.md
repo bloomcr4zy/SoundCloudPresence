@@ -16,7 +16,7 @@ Mostre no Discord a faixa que você está ouvindo no SoundCloud. O plugin exibe 
 ## Instalação
 
 1. No navegador, abra o Web Scrobbler e autorize sua conta do Last.fm. Toque uma faixa no SoundCloud e confirme que ela aparece como reprodução atual no seu perfil do Last.fm.
-2. Baixe o repositório. No Discord, vá em **Settings → BetterDiscord → Plugins → Open Plugin Folder** e copie [SoundCloudPresence.plugin.js](SoundCloudPresence.plugin.js) para essa pasta.
+2. Baixe o ZIP na [página da release](https://github.com/bloomcr4zy/SoundCloudPresence/releases/latest) e extraia os arquivos. No Discord, vá em **Settings → BetterDiscord → Plugins → Open Plugin Folder** e copie [SoundCloudPresence.plugin.js](SoundCloudPresence.plugin.js) para essa pasta.
 3. Abra o PowerShell (Windows) ou o Terminal (macOS) na pasta baixada e rode a ponte. Mantenha o terminal aberto enquanto usar o plugin.
 
    ```text
