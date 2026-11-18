@@ -4,9 +4,9 @@ const os = require('node:os');
 const path = require('node:path');
 const { randomUUID } = require('node:crypto');
 
-const applicationId = process.argv[2];
+const applicationId = process.argv[2] ?? '1572634764501065798';
 if (!/^\d{17,20}$/.test(applicationId ?? '')) {
-  console.error('Usage: node bridge.cjs <Discord Application ID>');
+  console.error('Usage: node bridge.cjs [Discord Application ID]');
   process.exit(1);
 }
 
