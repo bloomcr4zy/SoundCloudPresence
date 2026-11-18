@@ -177,7 +177,9 @@ module.exports = class SoundCloudPresence {
     }
 
     findSoundCloudMatch(results, title, artist) {
-        const comparableTitle = value => normalize(value).replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+        const comparableTitle = value => normalize(value)
+            .replace(/\[\s*spotify\s*\]/g, " ")
+            .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
         const normalizedTitle = comparableTitle(title);
         const artists = new Set([normalize(artist), ...artist.split(/[,;]/).map(normalize)]);
         artists.delete("");
