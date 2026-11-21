@@ -20,6 +20,7 @@ const MESSAGES = {
     disabled: "Plugin is disabled.",
     clearError: "Could not clear Rich Presence. The bridge will expire the last update.",
     legacyActive: "Disable LastFMRichPresence to free up the bridge.",
+    spotifyActive: "SoundCloud presence is paused while Spotify is shown on Discord.",
     credentials: "Enter your Last.fm username and API key.",
     idle: "Last.fm has not detected a track yet. Play a track and check your Web Scrobbler connection.",
     lastfmError: "Last.fm did not return any tracks. Check your username and API key.",
@@ -123,6 +124,7 @@ module.exports = class SoundCloudPresence {
             return;
         } finally {
             this.hasActivity = false;
+            this.spotifySuppressed = false;
             this.currentTrack = undefined;
         }
         this.setStatus(MESSAGES.disabled);
@@ -133,8 +135,8 @@ module.exports = class SoundCloudPresence {
         if (this.statusElement) this.statusElement.textContent = message;
     }
 
-    publish(activity) {
-        if (!activity && !this.hasActivity) return;
+    publish(activity, forceClear = false) {
+        if (!activity && !this.hasActivity && !forceClear) return;
         fs.writeFileSync(temporaryFile, JSON.stringify({ activity, updatedAt: Date.now() }), {
             mode: 0o600
         });
@@ -227,6 +229,27 @@ module.exports = class SoundCloudPresence {
             !BdApi.Plugins.isEnabled(LEGACY);
     }
 
+    suppressForSpotify() {
+        const webpack = BdApi.Webpack;
+        this.localPresence ??= webpack?.getModule(module =>
+            typeof module?.getLocalPresence === "function", { searchExports: true });
+        const localActivities = this.localPresence?.getLocalPresence()?.activities;
+        const userId = webpack?.getStore?.("UserStore")?.getCurrentUser?.()?.id;
+        const profileActivities = userId && webpack?.getStore?.("PresenceStore")?.getActivities?.(userId);
+        const isSpotify = activity => activity?.name === "Spotify" && activity?.type === 2;
+
+        if (!localActivities?.some(isSpotify) && !profileActivities?.some(isSpotify)) {
+            this.spotifySuppressed = false;
+            return false;
+        }
+
+        if (!this.spotifySuppressed) this.publish(null, true);
+        this.spotifySuppressed = true;
+        this.currentTrack = undefined;
+        this.setStatus(MESSAGES.spotifyActive);
+        return true;
+    }
+
     async poll(session) {
         try {
             if (BdApi.Plugins.isEnabled(LEGACY)) {
@@ -235,12 +258,13 @@ module.exports = class SoundCloudPresence {
                 this.setStatus(MESSAGES.legacyActive);
                 return;
             }
+            if (this.suppressForSpotify()) return;
             if (!this.settings.username || !this.settings.lastfmKey) {
                 this.setStatus(MESSAGES.credentials);
                 return;
             }
             const track = await this.getTrack(session.signal);
-            if (!this.active(session)) return;
+            if (!this.active(session) || this.suppressForSpotify()) return;
             if (!track) {
                 this.publish(null);
                 this.currentTrack = undefined;
@@ -264,7 +288,7 @@ module.exports = class SoundCloudPresence {
                     current.retryAt = Date.now() + LOOKUP_RETRY_MS;
                 }
             }
-            if (!this.active(session)) return;
+            if (!this.active(session) || this.suppressForSpotify()) return;
 
             const match = current.match;
             const artwork = match?.artwork ||
